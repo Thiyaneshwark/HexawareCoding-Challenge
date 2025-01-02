@@ -1,0 +1,329 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "LoanManagementSystem",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Loan/apply": {
+      "post": {
+        "tags": [
+          "Loan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Loan"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Loan"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Loan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/calculate-interest/{loanId}": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/status/{loanId}": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/calculate-emi/{loanId}": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/repayment/{loanId}": {
+      "post": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/all": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Loan/{loanId}": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "creditScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "loans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Loan"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Loan": {
+        "type": "object",
+        "properties": {
+          "loanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "principalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "interestRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "loanTerm": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "loanType": {
+            "type": "string",
+            "nullable": true
+          },
+          "loanStatus": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
